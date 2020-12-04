@@ -1,20 +1,19 @@
 <template>
 <div id="app">
   <div class="header">
-    <router-link to="/">
-      <div class="logo">
-        <img src="/ordinary.png">
-      </div>
-    </router-link>
-    <div class="title">
-      <h1>Museum of Ordinary Objects</h1>
+    <div class="heading">
+      <h1 id="top">Show off your Playlist</h1> 
+    </div>
+    <div class="logo">
+        <img src="/musiclogo.png">
     </div>
   </div>
   <div class="content">
     <router-view />
   </div>
   <div class="footer">
-    <router-link to="/admin">Admin</router-link>
+    <router-link to="/">Home</router-link>
+    <router-link to="/upload">Upload</router-link>
   </div>
 </div>
 </template>
@@ -25,27 +24,26 @@ html {
 }
 
 body {
-  font-family: 'Montserrat', sans-serif;
-  font-size: 16px;
-  background: #fff;
+  font-family: 'Poppins', sans-serif;
+  font-size: 15px;
   padding: 0px;
   margin: 0px;
+  background-color: #E5E5E5;
 }
 
 /* Header */
 .header {
   display: flex;
-  padding: 10px 100px 0px 100px;
-  background-color: #5BDEFF;
-  color: #1C454F;
+  padding: 20px 100px 0px 100px;
+  background-color: black;
+  color: #03F5F5;
 }
 
-.title {
-  margin-top: 5px;
-}
-
-.title h1 {
-  font-size: 30px;
+.heading {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
 }
 
 .content {
@@ -55,10 +53,14 @@ body {
 
 /* Footer */
 .footer {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;    
   height: 50px;
   padding: 20px 100px 0px 100px;
-  background: #e3e3e3;
-  font-size: 12px;
+  background: #F5037C;
+  font-size: 25px;
+  font-family: 'Teko', sans-serif;
 }
 
 .footer a {
@@ -66,7 +68,12 @@ body {
 }
 
 h1 {
-  font-size: 20px;
+  margin-top: 30px;
+  font-size: 40px;
+}
+
+#top {
+  font-size: 55px;
 }
 
 h2 {

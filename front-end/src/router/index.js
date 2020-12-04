@@ -1,7 +1,7 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
 import Home from '../views/Home.vue'
-import Admin from '../views/Admin.vue'
+import Upload from '../views/Upload.vue'
 
 Vue.use(VueRouter)
 
@@ -11,9 +11,9 @@ const routes = [{
     component: Home
   },
   {
-    path: '/admin',
-    name: 'admin',
-    component: Admin
+    path: '/upload',
+    name: 'upload',
+    component: Upload
   }
 ]
 
