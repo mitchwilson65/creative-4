@@ -18,12 +18,11 @@ const songSchema = new mongoose.Schema({
   title: String,
   artist: String,
   album: String,
-  genre: String
+  genre: String,
 });
 
-// Create a model for songs in the library
+// Create models for songs and list in the library
 const Song = mongoose.model('Song', songSchema);
-
 
 // Create a new song in the library
 app.post('/api/songs', async (req, res) => {
@@ -68,20 +67,27 @@ app.delete('/api/songs/:id', async (req, res) => {
 
 
 
-// LIST, THIS PART IS EXPERIMENTAL
-// // Create a new song in the library
-/* const List = mongoose.model('List', songSchema);
+const listSchema = new mongoose.Schema({
+  title: String,
+  artist: String,
+  album: String,
+  genre: String,
+});
 
+
+const List = mongoose.model('List', listSchema);
+
+// Create a new song in the library
 app.post('/api/list', async (req, res) => {
-  const song = new List({
+  const list = new List({
     title: req.body.title,
     artist: req.body.artist,
     album: req.body.album,
     genre: req.body.genre,
   });
   try {
-    await song.save();
-    res.send(song);
+    await list.save();
+    res.send(list);
   } catch (error) {
     console.log(error);
     res.sendStatus(500);
@@ -91,8 +97,8 @@ app.post('/api/list', async (req, res) => {
 // Get the songs for displaying
 app.get('/api/list', async (req, res) => {
         try {
-                let songs = await List.find();
-                res.send(songs);
+                let list = await List.find();
+                res.send(list);
         } catch(error) {
                 console.log(error);
                 res.sendStatus(500);
@@ -100,16 +106,17 @@ app.get('/api/list', async (req, res) => {
 });
 
 // Delete song
-app.delete('/api/list/:id', async (req, res) => {
+app.delete('/api/list/', async (req, res) => {
         try {
-                let songs = await List.deleteOne({ _id: req.params.id });
-                res.send(songs);
+                let list = await List.deleteOne();
+                res.send(list);
         } catch (error) {
                 console.log(error);
                 res.sendStatus(500);
         }
 });
-*/
+
+
 
 
 
