@@ -9,8 +9,8 @@
 		<button type="submit">Add</button>
 	</form>
 	<ul>
-		<li v-for="song in songs" v-bind:key="song._id">
-			{{song.title}} -{{song.artist}}     {{song.album}}     {{song.genre}}
+		<li v-for="song in songs" :key="song._id">
+			{{song.title}} -{{song.artist}}, {{song.album}}, {{song.genre}}
 		</li>
 	</ul>
 </div>
@@ -28,11 +28,11 @@ export default {
 			newArtist: "",
 			newAlbum: "",
 			newGenre: "",
-			songs: [
-				{ title: "Sugar Town", artist: "Nancy Sinatra", album: "Sugar", genre: "Pop" },
-				{ title: "Beast of Burden", artist: "The Rolling Stones", album: "40 Licks", genre: "Rock" },
-			],
+			songs: [],
 		}
+	},
+	created() {
+		this.getSongs();
 	},
 	methods: {
 		addSong() {
@@ -56,6 +56,15 @@ export default {
 			this.newArtist = "";		
 			this.newAlbum = "";		
 			this.newGenre = "";
+		},
+		async getSongs() {
+			try {
+				let response = await axios.get("/api/songs");
+				this.songs = response.data;
+				return true;
+			} catch(error) {
+				console.log(error);
+			}
 		},
 		fileChanged(event) {
 			this.file = event.target.files[0];

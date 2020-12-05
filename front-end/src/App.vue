@@ -2,18 +2,20 @@
 <div id="app">
   <div class="header">
     <div class="heading">
-      <h1 id="top">Show off your Playlist</h1> 
+      <h1 id="top">Be a Jukebox Hero.</h1> 
     </div>
     <div class="logo">
         <img src="/musiclogo.png">
     </div>
   </div>
-  <div class="content">
-    <router-view />
-  </div>
   <div class="footer">
     <router-link to="/">Home</router-link>
-    <router-link to="/upload">Upload</router-link>
+    <router-link to="/choose">Choose Song</router-link>
+    <router-link to="/upload">Upload (Admin only)</router-link>
+    <router-link to="/edit">Edit (Admin only)</router-link>
+  </div>
+  <div class="content">
+    <router-view />
   </div>
 </div>
 </template>
