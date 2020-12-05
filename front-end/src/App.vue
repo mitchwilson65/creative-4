@@ -17,12 +17,20 @@
   <div class="content">
     <router-view />
   </div>
+  <div class="gitHub">
+	<a href="https://github.com/mitchwilson65/creative-4">GitHub</a>
+  </div>
 </div>
 </template>
 
 <style>
 html {
   box-sizing: border-box;
+}
+
+.gitHub{
+	display: flex;
+	justify-content: center;
 }
 
 body {
