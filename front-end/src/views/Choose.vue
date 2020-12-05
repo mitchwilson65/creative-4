@@ -11,8 +11,12 @@
 			{{findSong.title}} -{{findSong.artist}}, {{findSong.album}}, {{findSong.genre}}
 			<button @click="chooseSong">Choose Song</button>
 		</div>
-		<div class="suggestions">
+		<br>
+		<div class="suggestions" v-if="suggestions.length > 0">
 			<div class="suggestion" v-for="sug in suggestions" :key="sug._id" @click="selectSong(sug)">{{sug.title}} -{{sug.artist}}, {{sug.album}}, {{sug.genre}}</div>
+		</div>
+		<div class="sorry" v-if="suggestions.length === 0">
+			<p>We're sorry, this song is not downloaded.  Please talk to our administrator about adding it:)</p>
 		</div>
 	</div>
 </div>
@@ -29,8 +33,8 @@ export default {
 			findArtist: "",
 			findAlbum: "",
 			findGenre: "",
-			list: [],
 			songs: [],
+			list: [],
 		}
 	},
 	created() {
@@ -38,10 +42,11 @@ export default {
 	},
 	computed: {
 		suggestions() {
-			let songs = this.songs.filter(song => song.title.toLowerCase().startsWith(this.findTitle.toLowerCase()) &&
+			let songs = this.songs.filter(song => 
+			song.title.toLowerCase().startsWith(this.findTitle.toLowerCase()) &&
 			song.artist.toLowerCase().startsWith(this.findArtist.toLowerCase()) &&
 			song.album.toLowerCase().startsWith(this.findAlbum.toLowerCase()) &&
-			song.genre.toLowerCase().startsWith(this.findGenre.toLowerCase()));
+			song.genre.toLowerCase().startsWith(this.findGenre.toLowerCase())); 
 			return songs.sort((a,b) => a.title > b.title);
 		}
 	},
@@ -62,27 +67,25 @@ export default {
 			this.findGenre = "";
 			this.findSong = song;
 		},
-		chooseSong() {
-			var url = "/api/songs";
+		async chooseSong() {
+			var url = "/api/list";
 			axios.post(url, {
-				title: this.newTitle,
-				artist: this.newArtist,
-				album: this.newAlbum,
-				genre: this.newGenre
+				title: this.findSong.title,
+				artist: this.findSong.artist,
+				album: this.findSong.album,
+				genre: this.findSong.genre,
 			})
 			.then(response => {
 				console.log("Post Response ");
 				console.log(response.data);
-				this.list.push(response.data);
+				this.songs.push(response.data);
 			})
 			.catch(e => {
 				console.log(e);
 			});
 			console.log(this.list);
-			this.newTitle = "";
-			this.newArtist = "";
-			this.newAlbum = "";
-			this.newGenre = "";
+			this.findSong = null;		
+			this.getSongs();	
 		},
 		fileChanged(event) {
 			this.file = event.target.files[0];

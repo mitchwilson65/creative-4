@@ -2,10 +2,11 @@
 <div class="home">
 	<p>NOW PLAYING: </p>
 	<ul>
-		<li v-for="song in list" :key="song._id">
+		<li v-for="song in songs" :key="song._id">
 			{{song.title}} -{{song.artist}}, {{song.album}}, {{song.genre}}
 		</li>
 	</ul>
+	<button @click="songOver()">Song Over</button>
 </div>
 </template>
 
@@ -16,7 +17,8 @@ export default {
   name: 'Home',
   data() {
 	return {
-		list: [],
+		file: null,
+		songs: [],
 	}
   }, 
   created() {
@@ -25,13 +27,25 @@ export default {
   methods: {
 	async getSongs() {
 		try {
-			let response = await axios.get("/api/songs");
-			this.list = response.data;
+			let response = await axios.get("/api/list");
+			this.songs = response.data;
 			return true;
-		} catch(error) {
+			} catch(error) {
 			console.log(error);
 		}
 	},
+	async songOver() {
+		try {
+			await axios.delete("/api/list");
+			this.getSongs();
+			return true;
+		} catch(error) {
+			console.log(error);
+			}
+	},
+	fileChanged(event) {
+		this.file = event.target.files[0];
+	}, 
   },
 }
 </script>

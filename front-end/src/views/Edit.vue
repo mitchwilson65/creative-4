@@ -7,11 +7,11 @@
 		<input v-model="findAlbum" placeholder="Search Albums">
 		<input v-model="findGenre" placeholder="Search Genres">
 		
-		<div class="selected" v-if="findSong">
+		<div class="action" v-if="findSong">
 			{{findSong.title}} -{{findSong.artist}}, {{findSong.album}}, {{findSong.genre}}
 			<button @click="deleteSong(findSong)">Delete Song</button>
 		</div>
-		<div class="suggestions">
+		<div class="suggestions" v-if="suggestions.length > 0">
 			<div class="suggestion" v-for="sug in suggestions" :key="sug._id" @click="selectSong(sug)">{{sug.title}} -{{sug.artist}}, {{sug.album}}, {{sug.genre}}</div>
 		</div>
 	</div>
@@ -37,11 +37,12 @@ export default {
 	},
 	computed: {
 		suggestions() {
-			let songs = this.songs.filter(song => song.title.toLowerCase().startsWith(this.findTitle.toLowerCase()) &&
+			let songs = this.songs.filter(song => 
+			song.title.toLowerCase().startsWith(this.findTitle.toLowerCase()) &&
 			song.artist.toLowerCase().startsWith(this.findArtist.toLowerCase()) &&
 			song.album.toLowerCase().startsWith(this.findAlbum.toLowerCase()) &&
 			song.genre.toLowerCase().startsWith(this.findGenre.toLowerCase()));
-			return songs.sort((a,b) => a.title > b.title);
+			return songs.sort((a,b) => a.title > b.title);   
 		}
 	},
 	methods: {

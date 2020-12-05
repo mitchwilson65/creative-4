@@ -36,6 +36,7 @@ export default {
 	},
 	methods: {
 		addSong() {
+			if (this.newTitle != "") { 
 			var url = "/api/songs";
 			axios.post(url, {
 				title: this.newTitle,
@@ -56,6 +57,8 @@ export default {
 			this.newArtist = "";		
 			this.newAlbum = "";		
 			this.newGenre = "";
+			}
+			else { console.log("Can't have an empty title"); }
 		},
 		async getSongs() {
 			try {
